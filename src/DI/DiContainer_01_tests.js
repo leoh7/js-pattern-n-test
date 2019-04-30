@@ -41,6 +41,6 @@ describe('DiContainer', function() {
         return returnFromRegisteredFunction;
       });
       expect(container.get(name)).toBe(returnFromRegisteredFunction);
-    })
-  })
+    });
+  });
 });

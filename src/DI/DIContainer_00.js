@@ -28,5 +28,9 @@ DiContainer.prototype.register = function(name, dependencies, func) {
 }
 
 DiContainer.prototype.get = function(name) {
-  return this.registrations[name].func;
+  var registration = this.registrations[name];
+  if (registration === undefined) {
+    return undefined;
+  }
+  return registration.func();
 };
