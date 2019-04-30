@@ -1,0 +1,14 @@
+{
+  "name": "js-pattern-test",
+  "version": "1.0.0",
+  "description": "자바스크립트 패턴과 테스트",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "leoh7",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.7.1"
+  }
+}
