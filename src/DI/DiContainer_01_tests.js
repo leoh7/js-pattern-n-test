@@ -35,7 +35,12 @@ describe('DiContainer', function() {
 
   describe('get(name)', function() {
     it('성명이 등록되어 있지 않으면 undefined를 반환한다', function() {
-      expect(container.get('notDefined')).toBeUndefined();
+      var name = 'MyName',
+          returnFromRegisteredFunction = 'something';
+      container.register(name, [], function() {
+        return returnFromRegisteredFunction;
+      });
+      expect(container.get(name)).toBe(returnFromRegisteredFunction);
     })
   })
 });
