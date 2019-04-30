@@ -28,7 +28,7 @@ describe('DiContainer', function() {
           // apply는 해당 함수(register)를 주어진 'this'(container) context로, 
           // 콤마로 나뉜 일반 함수 호출과 달리 배열 타입의 인자(args)를 넘겨 호출하는 함수다
           container.register.apply(container, args);  
-        }).toThrow();
+        }).toThrowError(container.messages.registerRequiresArgs);
       });
     });
 
