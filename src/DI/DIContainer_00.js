@@ -24,13 +24,20 @@ DiContainer.prototype.register = function(name, dependencies, func) {
       throw new Error(this.messages.registerRequiresArgs);
     }
   }
-  this.registrations[name] = { func: func };
+  this.registrations[name] = { dependencies: dependencies, func: func };
 }
 
 DiContainer.prototype.get = function(name) {
-  var registration = this.registrations[name];
+  var self = this,
+      registration = this.registrations[name],
+      dependencies = [];
   if (registration === undefined) {
     return undefined;
   }
-  return registration.func();
+
+  registration.dependencies.forEach(function(dependencyName) {
+    var dependency = self.get(dependencyName);
+    dependencies.push( dependency === undefined ? undefined : dependency );
+  });
+  return registration.func.apply(undefined, dependencies);
 };
