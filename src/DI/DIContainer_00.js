@@ -3,7 +3,9 @@ DiContainer = function() {
   if (!(this instanceof DiContainer)) {
     return new DiContainer();
   }
+  this.registrations = [];
 };
+
 DiContainer.prototype.messages = {
   registerRequiresArgs: '이 생성자 함수는 인자가 3개 있어야 합니다: ' + 
     '문자열, 문자열 배열, 함수'
@@ -22,8 +24,9 @@ DiContainer.prototype.register = function(name, dependencies, func) {
       throw new Error(this.messages.registerRequiresArgs);
     }
   }
+  this.registrations[name] = { func: func };
 }
 
 DiContainer.prototype.get = function(name) {
-
+  return this.registrations[name].func;
 };
