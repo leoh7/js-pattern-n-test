@@ -4,11 +4,12 @@
   "description": "자바스크립트 패턴과 테스트",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jasmine"
   },
   "author": "leoh7",
   "license": "ISC",
   "devDependencies": {
+    "jasmine": "^3.4.0",
     "jest": "^24.7.1"
   }
 }
