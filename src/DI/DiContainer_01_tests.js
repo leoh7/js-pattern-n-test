@@ -3,6 +3,7 @@ describe('DiContainer', function() {
   beforeEach(function() {
     container = new DiContainer();
   });
+
   describe('register(name, dependencies,func)', function() {
     // 01
     it('인자가 하나라도 빠졌거나 타입이 잘못되면 예외를 던진다', function() {
@@ -24,9 +25,13 @@ describe('DiContainer', function() {
 
       badArgs.forEach(function(args) {
         expect(function() {
-          container.register.apply(container, args);
+          // apply는 해당 함수(register)를 주어진 'this'(container) context로, 
+          // 콤마로 나뉜 일반 함수 호출과 달리 배열 타입의 인자(args)를 넘겨 호출하는 함수다
+          container.register.apply(container, args);  
         }).toThrow();
       });
     });
+
   });
+
 });
