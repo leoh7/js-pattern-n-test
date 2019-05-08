@@ -29,3 +29,22 @@ Aop = {
     return f.fn.apply(this, f.arguments);
   }
 };
+
+Aop.before = function(pointcut, advice, namespaces) {
+  Aop.around(pointcut,
+             function(f) {
+               advice.apply(this, f.arguments);
+               return Aop.next.call(this, f);
+             }, 
+             namespaces);
+};
+
+Aop.after = function(pointcut, advice, namespaces) {
+  Aop.around(pointcut,
+             function(f) {
+               var ret = Aop.next.call(this, f);
+               advice.apply(this, f.arguments);
+               return ret;
+             },
+             namespaces);
+};
