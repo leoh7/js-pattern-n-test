@@ -24,5 +24,8 @@ Aop = {
         }
       }
     }
+  },
+  next: function(f) {
+    return f.fn.apply(this, f.arguments);
   }
-}
+};
