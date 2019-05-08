@@ -9,6 +9,11 @@ describe('Aop', () => {
       var advice = function() {
         excutedAdvice = true;
       };
+      Aop = {
+        around: function(fnName, advice, targetObj) {
+          advice();
+        }
+      }
       Aop.around('targetFn', advice, targetObj);
       targetObj.targetFn();
       expect(excutedAdvice).toBe(true);
