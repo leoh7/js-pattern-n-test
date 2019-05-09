@@ -1,7 +1,11 @@
 describe('Aop', () => {
   Aop = {
     around: function(fnName, advice, fnObj) {
-      fnObj[fnName] = advice;
+      var originalFn = fnObj[fnName];
+      fnObj[fnName] = function() {
+        var targetContext = {};
+        advice.call(targetContext, {fn:originalFn});
+      };
     }
   }
   
