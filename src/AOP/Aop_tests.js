@@ -10,7 +10,9 @@ describe('Aop', () => {
   }
   
   var targetObj,
-      executionPoints;
+      executionPoints,
+      argsToTarget;    // targetObj.targetFn에 전달할 인자들
+
   beforeEach(function() {
     executionPoints = [];
     targetObj = {
@@ -18,6 +20,7 @@ describe('Aop', () => {
         executionPoints.push('targetFn');
       }
     }
+    argsToTarget = ['a', 'b'];
   });
 
   describe('Aop.around(fnName, advice, targetObj)', () => {
