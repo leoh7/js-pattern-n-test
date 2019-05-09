@@ -4,13 +4,15 @@ describe('Aop', () => {
       var originalFn = fnObj[fnName];
       fnObj[fnName] = function() {
         var targetContext = {};
-        advice.call(targetContext, {fn:originalFn});
+        advice.call(targetContext, {fn: originalFn,
+                                    args: arguments});
       };
     }
   }
   
   var targetObj,
       executionPoints,
+      argPassingAdvice, // 타겟에 인자를 전달할 어드바이스
       argsToTarget;    // targetObj.targetFn에 전달할 인자들
 
   beforeEach(function() {
@@ -18,9 +20,13 @@ describe('Aop', () => {
     targetObj = {
       targetFn: function () {
         executionPoints.push('targetFn');
+        argsToTarget = Array.prototype.slice.call(arguments, 0);
       }
     }
-    argsToTarget = ['a', 'b'];
+    argsToTarget = [];
+    argPassingAdvice = function(targetInfo) {
+      targetInfo.fn.apply(this, targetInfo.args);
+    }
   });
 
   describe('Aop.around(fnName, advice, targetObj)', () => {
@@ -67,6 +73,8 @@ describe('Aop', () => {
       ]);
     });
     it('어드바이스에서 타깃으로 일반 인자를 넘길 수 있다', () => {
+      Aop.around('targetFn', argPassingAdvice, targetObj);
+      targetObj.targetFn('a', 'b');
       expect(argsToTarget).toEqual(['a', 'b']);
     })
   });
