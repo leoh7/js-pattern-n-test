@@ -43,6 +43,15 @@ describe('Aop', () => {
         ['wrappingAdvice - 처음', 'targetFn', 'wrappingAdvice - 끝']
       );
     });
+    it('마지막 어드바이스가 기존 어드바이스에 대해 실행되는 방식으로 체이닝 할 수 있다', () => {
+      expect(executionPoints).toEqual([
+        'wrappingAdvice - 처음 바깥쪽',
+        'wrappingAdvice - 처음 안쪽',
+        'targetFn',
+        'wrappingAdvice - 끝 안쪽',
+        'wrappingAdvice - 끝 바깥쪽'
+      ]);
+    });
   });
   
 });
