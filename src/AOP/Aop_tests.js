@@ -25,6 +25,7 @@ describe('Aop', () => {
       expect(excutedAdvice).toBe(true);
     });
     it('어드바이스가 타깃 호출을 래핑한다', () => {
+      var executionPoints = ['wrappingAdvice - 처음', 'targetFn', 'wrappingAdvice - 끝'];
       expect(executionPoints).toEqual(
         ['wrappingAdvice - 처음', 'targetFn', 'wrappingAdvice - 끝']
       );
