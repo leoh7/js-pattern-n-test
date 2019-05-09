@@ -5,10 +5,13 @@ describe('Aop', () => {
     }
   }
   
-  var targetObj;
+  var targetObj,
+      executionPoints;
   beforeEach(function() {
+    executionPoints = [];
     targetObj = {
       targetFn: function () {
+        executionPoints.push('targetFn');
       }
     }
   });
@@ -25,12 +28,13 @@ describe('Aop', () => {
       expect(excutedAdvice).toBe(true);
     });
     it('어드바이스가 타깃 호출을 래핑한다', () => {
-      var executionPoints = [];
-      var wrappingAdvice = function() {
+      var wrappingAdvice = function(targetInfo) {
         executionPoints.push('wrappingAdvice - 처음');
-        executionPoints.push('targetFn');
+        targetInfo.fn();
         executionPoints.push('wrappingAdvice - 끝');
-      }();
+      };
+      Aop.around('targetFn', wrappingAdvice, targetObj);
+      targetObj.targetFn();      
       expect(executionPoints).toEqual(
         ['wrappingAdvice - 처음', 'targetFn', 'wrappingAdvice - 끝']
       );
