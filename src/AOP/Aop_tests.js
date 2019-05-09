@@ -63,6 +63,9 @@ describe('Aop', () => {
         'wrappingAdvice - 끝 바깥쪽'
       ]);
     });
+    it('어드바이스에서 타깃으로 일반 인자를 넘길 수 있다', () => {
+      expect(argsToTarget).toEqual(['a', 'b']);
+    })
   });
   
 });
